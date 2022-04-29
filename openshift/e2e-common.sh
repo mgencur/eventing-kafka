@@ -336,8 +336,7 @@ function run_e2e_tests(){
   # the source tests REQUIRE the secrets, hence we create it here:
   create_auth_secrets || return 1
 
-  oc get ns ${SYSTEM_NAMESPACE} 2>/dev/null || SYSTEM_NAMESPACE="knative-eventing"
-  oc -n ${SYSTEM_NAMESPACE} patch knativeeventing/knative-eventing --type=merge --patch='{"spec": {"config": { "tracing": {"enable":"true","backend":"zipkin", "zipkin-endpoint":"http://zipkin.'${SYSTEM_NAMESPACE}'.svc.cluster.local:9411/api/v2/spans", "debug":"true", "sample-rate":"1.0"}}}}'
+  oc get ns "${SYSTEM_NAMESPACE}" 2>/dev/null || SYSTEM_NAMESPACE="knative-eventing"
 
   local test_name="${1:-}"
   local run_command=""
